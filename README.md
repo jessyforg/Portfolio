@@ -70,7 +70,8 @@ eslint.config.js        Lint rules
 ## Content and assets
 
 - All text about Jester lives in `src/content/`. Every claim must be supported by the resume or verified project evidence; do not add metrics, testimonials, or features that are not confirmed.
-- **Never publish** the phone number or home address.
+- Do not show the phone number or home address on site pages. The resume PDF includes the phone number by Jester's choice; the home address must never be published.
+- **Updating the resume:** export from Word, then replace `public/assets/resume/jester-perez-resume.pdf` (same filename). Check the PDF's Author property says Jester Perez, not the Word template author.
 - Asset filenames are lowercase with hyphens (e.g. `profile-portrait-960.webp`). Images are WebP with metadata stripped, and are referenced through `assetUrl()`.
 - Project summaries in `content/projects.ts` are shared by the home-page cards and the case-study pages.
 
@@ -90,5 +91,4 @@ Nav items link to home-page sections (`/#work`, `/#about`, `/#contact`). After e
 ## Known limitations
 
 - Both case-study pages are temporary placeholders (Milestone 4).
-- The public resume PDF (without phone number or home address) has not been added, so the **Download resume** and **Resume** links currently return 404.
 - Not yet deployed. Hosting on Vercel needs a rewrite rule so direct visits to case-study URLs work (planned for Milestone 6).

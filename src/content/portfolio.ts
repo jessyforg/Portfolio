@@ -10,7 +10,8 @@ import { assetUrl } from '../utils/assetPaths'
 /*
  * Source for everything in this file: Jester's resume (Jester-Perez-IT-Resume.pdf)
  * and the project brief. Do not add claims that neither source supports.
- * Phone number and home address are intentionally NOT published.
+ * The phone number and home address are intentionally NOT shown on the site pages.
+ * (The resume PDF includes the phone number; Jester approved this on 2026-10-16.)
  */
 
 export const profile = {
@@ -47,8 +48,7 @@ export const contactLinks = {
 
 /**
  * URL of the resume PDF (stored in /public/assets/resume/).
- * TODO(asset): the public version of the resume (without phone number and home address)
- * has not been added yet, so this link is currently broken.
+ * Replace this file when the resume changes; keep the same filename so links stay valid.
  */
 export const resumeUrl = assetUrl('assets/resume/jester-perez-resume.pdf')
 
