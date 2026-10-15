@@ -1,0 +1,4 @@
+.section {
+  padding-block: var(--section-space);
+  border-top: var(--border-width) solid var(--color-border);
+}

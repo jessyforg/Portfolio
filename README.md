@@ -38,13 +38,15 @@ npm run dev   # start the dev server at http://localhost:5173
 ## Project structure
 
 ```
-public/                 Static files copied as-is (favicon, later: images, resume)
+public/assets/            Static files copied as-is: profile/ (portrait), resume/ (PDF), projects/ (screenshots)
 src/
   app/                  App root and route table (routes.tsx)
   components/
     layout/             Site-wide shell: SiteLayout, Navbar, Footer, PageContainer
-    ui/                 Reusable elements: Button/ButtonLink, SectionHeading, TechTagList
-  content/              Authored content (profile, contact links, resume URL)
+    layout/ also holds Section (titled home-page section wrapper)
+    sections/           Home-page sections: Hero, FeaturedProjects, About, Skills, Experience, Approach, Contact
+    ui/                 Reusable elements: Button/ButtonLink, ProjectCard, SectionHeading, TechTagList
+  content/              Authored content: portfolio.ts (profile, about, skills, experience, contact) and projects.ts
   data/                 Navigation items
   pages/                Route-level pages
   styles/               tokens.css (design tokens), reset.css, global.css
@@ -65,6 +67,13 @@ eslint.config.js        Lint rules
 - **Motion:** smooth scrolling and transitions are disabled when the OS "reduce motion" setting is on.
 - **Font:** Manrope Variable, self-hosted via `@fontsource-variable/manrope` (no external font requests).
 
+## Content and assets
+
+- All text about Jester lives in `src/content/`. Every claim must be supported by the resume or verified project evidence; do not add metrics, testimonials, or features that are not confirmed.
+- **Never publish** the phone number or home address.
+- Asset filenames are lowercase with hyphens (e.g. `profile-portrait-960.webp`). Images are WebP with metadata stripped, and are referenced through `assetUrl()`.
+- Project summaries in `content/projects.ts` are shared by the home-page cards and the case-study pages.
+
 ## Routing
 
 React Router (`createBrowserRouter`) with these routes:
@@ -80,6 +89,6 @@ Nav items link to home-page sections (`/#work`, `/#about`, `/#contact`). After e
 
 ## Known limitations
 
-- The home page and both case-study pages are temporary placeholders.
-- The resume PDF has not been added, so the **Resume** link currently returns 404.
+- Both case-study pages are temporary placeholders (Milestone 4).
+- The public resume PDF (without phone number or home address) has not been added, so the **Download resume** and **Resume** links currently return 404.
 - Not yet deployed. Hosting on Vercel needs a rewrite rule so direct visits to case-study URLs work (planned for Milestone 6).

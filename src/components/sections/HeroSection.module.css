@@ -1,0 +1,60 @@
+.hero {
+  display: grid;
+  gap: var(--space-8);
+  padding-block: clamp(3rem, 2rem + 5vw, 6.5rem) var(--section-space);
+}
+
+.text {
+  max-width: 44rem;
+}
+
+.name {
+  font-size: var(--text-display);
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+}
+
+.headline {
+  margin-top: var(--space-6);
+  font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem); /* 22 → 30px */
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.01em;
+}
+
+.details {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-6);
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-10);
+}
+
+/* Mobile: small portrait above the name. */
+.portrait {
+  order: -1;
+  width: 7rem;
+  aspect-ratio: 1;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr 20rem;
+    align-items: center;
+    gap: var(--space-16);
+  }
+
+  .portrait {
+    order: 0;
+    width: 100%;
+  }
+}

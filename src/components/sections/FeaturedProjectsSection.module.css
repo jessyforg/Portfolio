@@ -1,0 +1,14 @@
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.item {
+  display: grid; /* lets each card stretch to the row height */
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,25 @@
+.grid {
+  display: grid;
+  gap: var(--space-8) var(--space-12);
+}
+
+.item {
+  padding-top: var(--space-5);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.title {
+  font-size: var(--text-card-title);
+  line-height: var(--leading-snug);
+}
+
+.description {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
