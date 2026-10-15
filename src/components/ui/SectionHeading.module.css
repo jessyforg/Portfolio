@@ -1,0 +1,16 @@
+.heading {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+
+.title {
+  font-size: var(--text-section-title);
+}
+
+.intro {
+  max-width: var(--measure);
+  color: var(--color-text-muted);
+  font-size: var(--text-lead);
+  line-height: var(--leading-snug);
+}

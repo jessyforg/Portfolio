@@ -1,0 +1,71 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-md);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.md {
+  min-height: 3rem;
+  padding: 0 var(--space-6);
+  font-size: var(--text-small);
+}
+
+.sm {
+  min-height: 2.5rem;
+  padding: 0 var(--space-4);
+  font-size: var(--text-meta);
+}
+
+/* Primary: the one gold, filled action in a group. */
+.primary {
+  background-color: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.primary:hover {
+  background-color: var(--color-accent-hover);
+  color: var(--color-accent-ink);
+}
+
+/* Secondary: outlined, for supporting actions. */
+.secondary {
+  border-color: var(--color-border);
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+.secondary:hover {
+  border-color: var(--color-text-muted);
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+}
+
+.button:active {
+  translate: 0 1px;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  translate: none;
+}
+
+.primary:disabled:hover {
+  background-color: var(--color-accent);
+}
+
+.secondary:disabled:hover {
+  border-color: var(--color-border);
+  background-color: transparent;
+}

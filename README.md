@@ -38,18 +38,48 @@ npm run dev   # start the dev server at http://localhost:5173
 ## Project structure
 
 ```
-public/            Static files copied as-is (favicon, later: images, resume)
+public/                 Static files copied as-is (favicon, later: images, resume)
 src/
-  app/             Root App component
-  main.tsx         Entry point
-index.html         HTML shell and default metadata
-vite.config.ts     Vite configuration (base path lives here)
-eslint.config.js   Lint rules
+  app/                  App root and route table (routes.tsx)
+  components/
+    layout/             Site-wide shell: SiteLayout, Navbar, Footer, PageContainer
+    ui/                 Reusable elements: Button/ButtonLink, SectionHeading, TechTagList
+  content/              Authored content (profile, contact links, resume URL)
+  data/                 Navigation items
+  pages/                Route-level pages
+  styles/               tokens.css (design tokens), reset.css, global.css
+  types/                Shared TypeScript types
+  utils/                Helpers (assetUrl for files in /public)
+  main.tsx              Entry point: loads font, global styles, and the app
+index.html              HTML shell and default metadata
+vite.config.ts          Vite configuration (base path lives here)
+eslint.config.js        Lint rules
 ```
 
-The structure will grow as later milestones add layout, sections, and case-study pages.
+## Styling conventions
+
+- **Design tokens** live in `src/styles/tokens.css`. Component styles use `var(--token)` instead of raw colors, sizes, or spacing.
+- **Component styles** use CSS Modules: `Component.tsx` sits next to `Component.module.css`.
+- **Breakpoints:** `640px` and `900px` (mobile-first `min-width` queries). CSS variables can't be used in media queries, so these values are written literally.
+- **Focus:** every interactive element shows a gold outline on keyboard focus (`:focus-visible` in `global.css`). Never remove it.
+- **Motion:** smooth scrolling and transitions are disabled when the OS "reduce motion" setting is on.
+- **Font:** Manrope Variable, self-hosted via `@fontsource-variable/manrope` (no external font requests).
+
+## Routing
+
+React Router (`createBrowserRouter`) with these routes:
+
+| Path                | Page                                      |
+| ------------------- | ----------------------------------------- |
+| `/`                 | Home                                      |
+| `/projects/kapital` | Kapital case study (placeholder until M4) |
+| `/projects/taraki`  | TARAKI case study (placeholder until M4)  |
+| anything else       | Page not found                            |
+
+Nav items link to home-page sections (`/#work`, `/#about`, `/#contact`). After each navigation, focus moves to the new section or `<main>` so keyboard and screen-reader users land on the new content.
 
 ## Known limitations
 
-- Only a placeholder page exists; no real content yet.
-- Routing, design tokens, and deployment are not yet implemented.
+- The home page and both case-study pages are temporary placeholders.
+- The resume PDF has not been added, so the **Resume** link currently returns 404.
+- Not yet deployed. Hosting on Vercel needs a rewrite rule so direct visits to case-study URLs work (planned for Milestone 6).

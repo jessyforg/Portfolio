@@ -1,0 +1,12 @@
+.page {
+  padding-block: var(--section-space);
+}
+
+.title {
+  font-size: var(--text-section-title);
+}
+
+.text {
+  margin-block: var(--space-4) var(--space-8);
+  color: var(--color-text-muted);
+}
