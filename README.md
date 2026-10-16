@@ -38,7 +38,7 @@ npm run dev   # start the dev server at http://localhost:5173
 ## Project structure
 
 ```
-public/assets/            Static files copied as-is: profile/ (portrait), resume/ (PDF), projects/ (screenshots)
+public/assets/            Static files copied as-is: resume/ (PDF), projects/ (screenshots)
 src/
   app/                  App root and route table (routes.tsx)
   components/
@@ -87,7 +87,7 @@ eslint.config.js        Lint rules
 - All text about Jester lives in `src/content/`. Every claim must be supported by the resume or verified project evidence; do not add metrics, testimonials, or features that are not confirmed.
 - Do not show the phone number or home address on site pages. The resume PDF includes the phone number by Jester's choice; the home address must never be published.
 - **Updating the resume:** export from Word, then replace `public/assets/resume/jester-perez-resume.pdf` (same filename). Check the PDF's Author property says Jester Perez, not the Word template author.
-- Asset filenames are lowercase with hyphens (e.g. `profile-portrait-960.webp`). Images are WebP with metadata stripped, and are referenced through `assetUrl()`.
+- Asset filenames are lowercase with hyphens (e.g. `kapital-landing-960.webp`). Images are WebP with metadata stripped, and are referenced through `assetUrl()`.
 - Project summaries in `content/projects.ts` are shared by the home-page cards and the case-study pages. Case-study detail lives in `content/caseStudies.ts` and is rendered by one template, `pages/projects/CaseStudyPage.tsx`.
 - Case-study claims were verified against the source code (see the comment at the top of `caseStudies.ts`). Project repositories are intentionally not linked.
 

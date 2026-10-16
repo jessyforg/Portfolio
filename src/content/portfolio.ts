@@ -25,11 +25,6 @@ export const profile = {
   tagline: 'Building web applications from the interface to the database.',
   education: 'BS Information Technology (Web Development), University of the Cordilleras, 2026.',
   availability: 'Open to full-stack developer roles in the Philippines and remote.',
-  portrait: {
-    small: assetUrl('assets/profile/profile-portrait-480.webp'),
-    large: assetUrl('assets/profile/profile-portrait-960.webp'),
-    alt: 'Portrait of Jester Perez',
-  },
 } as const
 
 export const contactLinks = {
