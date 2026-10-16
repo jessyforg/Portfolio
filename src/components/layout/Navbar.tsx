@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router'
 import { profile, resumeUrl } from '../../content/portfolio'
 import { navItems } from '../../data/navigation'
 import { ButtonLink } from '../ui/Button'
+import { CodeLabel } from '../ui/CodeLabel'
 import { PageContainer } from './PageContainer'
 import styles from './Navbar.module.css'
 
@@ -58,7 +59,7 @@ export function Navbar() {
                   viewTransition={location.pathname !== '/'}
                   onClick={() => setOpenedAt(null)}
                 >
-                  {item.label}
+                  <CodeLabel>{item.label}</CodeLabel>
                 </Link>
               </li>
             ))}

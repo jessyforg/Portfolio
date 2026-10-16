@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Outlet, ScrollRestoration, useLocation } from 'react-router'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
+import { CursorSpotlight } from './CursorSpotlight'
 import { Footer } from './Footer'
 import { Navbar } from './Navbar'
 import styles from './SiteLayout.module.css'
@@ -38,6 +39,7 @@ export function SiteLayout() {
 
   return (
     <>
+      <CursorSpotlight />
       <a href="#main" className={styles.skipLink}>
         Skip to content
       </a>

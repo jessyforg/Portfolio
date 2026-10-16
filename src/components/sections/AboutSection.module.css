@@ -1,7 +1,35 @@
+.layout {
+  display: grid;
+  gap: var(--space-8);
+}
+
 .body {
   display: grid;
   gap: var(--space-5);
   max-width: var(--measure);
   font-size: var(--text-lead);
   line-height: var(--leading-body);
+}
+
+/* Mobile: small portrait above the text. */
+.portrait {
+  order: -1;
+  width: 8rem;
+  aspect-ratio: 1;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+}
+
+/* Wider screens: portrait to the right of the text. */
+@media (min-width: 640px) {
+  .layout {
+    grid-template-columns: 1fr 11rem;
+    align-items: start;
+  }
+
+  .portrait {
+    order: 0;
+    width: 100%;
+  }
 }

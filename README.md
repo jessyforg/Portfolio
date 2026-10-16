@@ -42,10 +42,12 @@ public/assets/            Static files copied as-is: profile/ (portrait), resume
 src/
   app/                  App root and route table (routes.tsx)
   components/
-    layout/             Site-wide shell: SiteLayout, Navbar, Footer, PageContainer
+    layout/             Site-wide shell: SiteLayout, Navbar, Footer, PageContainer, SidePanel
+                        (desktop sticky column on the home page), CursorSpotlight
     layout/ also holds Section (titled home-page section wrapper)
     sections/           Home-page sections: Hero, FeaturedProjects, About, Skills, Experience, Approach, Contact
-    ui/                 Reusable elements: Button/ButtonLink, ProjectCard, SectionHeading, TechTagList
+    ui/                 Reusable elements: Button/ButtonLink, CodeLabel ("// label"), ProjectCard,
+                        SectionHeading, TechTagList
   content/              Authored content: portfolio.ts (profile, about, skills, experience, contact) and projects.ts
   data/                 Navigation items
   pages/                Route-level pages
@@ -58,6 +60,12 @@ vite.config.ts          Vite configuration (base path lives here)
 eslint.config.js        Lint rules
 ```
 
+## Layout
+
+- **Home page:** a full-screen hero, then (at 1024px and wider) a two-column layout: a sticky `SidePanel` with identity, an "on this page" nav that marks the section being read (`useActiveSection`), and quick links, beside the scrolling sections. Below 1024px it is a single column and the header menu handles navigation.
+- **Code-style labels:** section titles and nav items use `CodeLabel`, which adds a gold `// ` prefix hidden from screen readers. Labels are lowercased with CSS, so the underlying text (and accessible names) keep normal capitalization.
+- **Monospace font:** a system stack (`--font-mono`), used only for labels.
+
 ## Styling conventions
 
 - **Design tokens** live in `src/styles/tokens.css`. Component styles use `var(--token)` instead of raw colors, sizes, or spacing.
@@ -68,7 +76,8 @@ eslint.config.js        Lint rules
   - Page-load entrances on the hero and case-study headers (CSS keyframes).
   - Scroll reveals: add `{...reveal(index)}` from `src/utils/reveal.ts` to an element; `useScrollReveal` (in `SiteLayout`) fades it up once when it enters the viewport. `index` staggers items in a group.
   - Page transitions: React Router's `viewTransition` prop on links that change page (View Transitions API; other browsers navigate instantly).
-  - Project-card cursor spotlight and hover lift (mouse/trackpad only), animated mobile menu, nav-link underline.
+  - Page-wide cursor spotlight (`CursorSpotlight`, mouse/trackpad only) and hover-focus lists: hovering a project or experience row highlights it and dims the others (mouse only, because dimmed rows fall below text-contrast minimums).
+  - Animated mobile menu and nav-link underline; the hero name slides up word by word.
   - With the OS "reduce motion" setting on, none of this runs and all content is visible immediately: `main.tsx` only enables the hidden "before reveal" state when motion is allowed.
   - No `scroll-behavior: smooth`: it made new pages visibly scroll after route changes.
 - **Font:** Manrope Variable, self-hosted via `@fontsource-variable/manrope` (no external font requests).

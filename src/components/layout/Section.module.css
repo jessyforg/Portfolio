@@ -1,4 +1,7 @@
 .section {
-  padding-block: var(--section-space);
-  border-top: var(--border-width) solid var(--color-border);
+  padding-block: calc(var(--section-space) / 2);
+}
+
+.section:first-child {
+  padding-top: 0;
 }

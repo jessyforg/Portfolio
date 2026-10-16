@@ -17,8 +17,12 @@ import { assetUrl } from '../utils/assetPaths'
 export const profile = {
   name: 'Jester Perez',
   role: 'Full-Stack Developer',
+  /** Short role line shown as a code comment in the hero and side panel. */
+  roleLine: 'Entry-level full-stack developer',
   headline:
-    'Entry-level full-stack developer building web applications with React, Node.js, PHP, and MySQL.',
+    'I build web applications across the frontend, the backend, and the database, with React, Node.js, PHP, and MySQL.',
+  /** One-line summary for the side panel. */
+  tagline: 'Building web applications from the interface to the database.',
   education: 'BS Information Technology (Web Development), University of the Cordilleras, 2026.',
   availability: 'Open to full-stack developer roles in the Philippines and remote.',
   portrait: {

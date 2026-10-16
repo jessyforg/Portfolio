@@ -1,0 +1,112 @@
+/* Hidden below the desktop breakpoint; the header menu handles navigation there. */
+.panel {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .panel {
+    position: sticky;
+    top: var(--header-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100svh - var(--header-height));
+    padding-block: var(--space-12);
+  }
+}
+
+.name {
+  font-size: clamp(1.75rem, 1.2rem + 1vw, 2.25rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+}
+
+.role {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: lowercase;
+}
+
+.tagline {
+  max-width: 20rem;
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+}
+
+/* ---------- "On this page" nav with a line that grows for the active section ---------- */
+
+.nav {
+  margin-top: var(--space-12);
+}
+
+.nav ul {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-block: var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-decoration: none;
+  text-transform: lowercase;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.indicator {
+  width: 2rem;
+  height: 1px;
+  background-color: currentColor;
+  transition:
+    width 300ms var(--ease-out-expo),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.navLink:hover,
+.navLink[aria-current] {
+  color: var(--color-text);
+}
+
+.navLink:hover .indicator,
+.navLink[aria-current] .indicator {
+  width: 4rem;
+}
+
+.navLink[aria-current] .indicator {
+  background-color: var(--color-accent);
+}
+
+/* ---------- Resume and contact links ---------- */
+
+.footer {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-5);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+}
+
+.link {
+  display: inline-block;
+  padding-block: var(--space-1);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--color-accent);
+}

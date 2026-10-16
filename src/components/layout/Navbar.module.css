@@ -128,6 +128,8 @@
 
 .link {
   display: block;
+  font-family: var(--font-mono);
+  text-transform: lowercase;
   padding: var(--space-3) 0;
   border-radius: var(--radius-sm); /* rounds the focus ring */
   color: var(--color-text);

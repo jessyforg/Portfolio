@@ -1,25 +1,47 @@
+/* Fills the first screen below the sticky header. */
 .hero {
+  position: relative;
   display: grid;
-  gap: var(--space-8);
-  padding-block: clamp(3rem, 2rem + 5vw, 6.5rem) var(--section-space);
-}
-
-.text {
-  max-width: 44rem;
+  align-content: center;
+  min-height: calc(100svh - var(--header-height));
+  padding-block: var(--space-16);
 }
 
 .name {
-  font-size: var(--text-display);
-  letter-spacing: var(--tracking-display);
-  line-height: 1;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.25em;
+  font-size: var(--text-hero);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+/* Clips each word so it can slide up from below its own baseline. */
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.08em; /* keeps descenders from being clipped */
+}
+
+.word {
+  display: inline-block;
+}
+
+.role {
+  margin-top: var(--space-8);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  text-transform: lowercase;
 }
 
 .headline {
-  margin-top: var(--space-6);
-  font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem); /* 22 → 30px */
-  font-weight: var(--weight-medium);
+  max-width: 40rem;
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-lead);
   line-height: var(--leading-snug);
-  letter-spacing: -0.01em;
 }
 
 .details {
@@ -27,6 +49,7 @@
   gap: var(--space-1);
   margin-top: var(--space-6);
   color: var(--color-text-muted);
+  font-size: var(--text-small);
 }
 
 .actions {
@@ -36,66 +59,114 @@
   margin-top: var(--space-10);
 }
 
-/* Mobile: small portrait above the name. */
-.portrait {
-  order: -1;
-  width: 7rem;
-  aspect-ratio: 1;
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  object-fit: cover;
+/* "Scroll to projects": a small text link with a line that draws downward. */
+.scrollCue {
+  position: absolute;
+  bottom: var(--space-8);
+  left: var(--gutter);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-decoration: none;
+  text-transform: lowercase;
 }
 
-@media (min-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr 20rem;
-    align-items: center;
-    gap: var(--space-16);
-  }
+.scrollCue:hover {
+  color: var(--color-text);
+}
 
-  .portrait {
-    order: 0;
-    width: 100%;
+.scrollLine {
+  position: relative;
+  width: 1px;
+  height: 2.5rem;
+  overflow: hidden;
+  background-color: var(--color-border);
+}
+
+.scrollLine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-accent);
+  transform: translateY(-100%);
+}
+
+/* Short screens: keep the cue in normal flow so it never overlaps the buttons. */
+@media (max-height: 700px) {
+  .scrollCue {
+    position: static;
+    margin-top: var(--space-10);
   }
 }
 
-/* ---------- Page-load entrance: text rises in line by line, portrait settles in ---------- */
+/* ---------- Page-load entrance ---------- */
+
+@keyframes word-up {
+  from {
+    transform: translateY(105%);
+  }
+}
 
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
   }
 }
 
-@keyframes settle-in {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
+@keyframes scroll-line {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  60%,
+  100% {
+    transform: translateY(100%);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .name,
+  .word {
+    animation: word-up 900ms var(--ease-out-expo) both;
+  }
+
+  .role,
   .headline,
   .details,
-  .actions {
+  .actions,
+  .scrollCue {
     animation: rise-in var(--duration-enter) var(--ease-out-expo) both;
   }
 
+  .role {
+    animation-delay: 300ms;
+  }
+
   .headline {
-    animation-delay: calc(1 * var(--stagger));
+    animation-delay: 380ms;
   }
 
   .details {
-    animation-delay: calc(2 * var(--stagger));
+    animation-delay: 460ms;
   }
 
   .actions {
-    animation-delay: calc(3 * var(--stagger));
+    animation-delay: 540ms;
   }
 
-  .portrait {
-    animation: settle-in 900ms var(--ease-out-expo) calc(1 * var(--stagger)) both;
+  .scrollCue {
+    animation-delay: 900ms;
+  }
+
+  /*
+   * Two passes only (about 4.8s in total): WCAG 2.2.2 requires automatic motion
+   * that lasts longer than 5 seconds to be pausable, so this must not loop forever.
+   */
+  .scrollLine::after {
+    animation: scroll-line 2.4s var(--ease-out-expo) 1.4s 2;
   }
 }

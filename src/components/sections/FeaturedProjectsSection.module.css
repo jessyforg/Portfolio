@@ -1,14 +1,19 @@
-.grid {
+.list {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
 
-.item {
-  display: grid; /* lets each card stretch to the row height */
-}
+/*
+ * Hover-focus: while the mouse is over one row, the other rows fade back so the eye
+ * follows the highlighted one. Mouse hover only: dimmed rows drop below text-contrast
+ * minimums, so keyboard focus highlights its row without dimming the others.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .item {
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
 
-@media (min-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .list:hover > .item:not(:hover) {
+    opacity: 0.55;
   }
 }

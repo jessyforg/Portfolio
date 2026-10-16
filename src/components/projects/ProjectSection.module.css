@@ -6,8 +6,12 @@
 }
 
 .title {
-  font-size: var(--text-card-title);
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0;
   line-height: var(--leading-snug);
+  text-transform: lowercase;
 }
 
 .body {

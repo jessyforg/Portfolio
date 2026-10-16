@@ -9,28 +9,31 @@ export function ExperienceSection() {
       <h3 className={styles.groupTitle}>Experience</h3>
       <ol role="list" className={styles.timeline}>
         {experience.map((entry, index) => (
-          <li key={entry.role} className={styles.entry} {...reveal(index)}>
-            <p className={styles.period}>
-              <time dateTime={entry.start.date}>{entry.start.label}</time>
-              {' – '}
-              <time dateTime={entry.end.date}>{entry.end.label}</time>
-            </p>
-            <div className={styles.content}>
-              <h4 className={styles.role}>{entry.role}</h4>
-              <p className={styles.org}>
-                {entry.organization}, {entry.location}
+          // <li> handles hover dimming; the inner <div> handles the scroll reveal.
+          <li key={entry.role} className={styles.item}>
+            <div className={styles.entry} {...reveal(index)}>
+              <p className={styles.period}>
+                <time dateTime={entry.start.date}>{entry.start.label}</time>
+                {' – '}
+                <time dateTime={entry.end.date}>{entry.end.label}</time>
               </p>
-              <ul className={styles.highlights}>
-                {entry.highlights.map((highlight) => (
-                  <li key={highlight}>{highlight}</li>
-                ))}
-              </ul>
+              <div className={styles.content}>
+                <h4 className={styles.role}>{entry.role}</h4>
+                <p className={styles.org}>
+                  {entry.organization}, {entry.location}
+                </p>
+                <ul className={styles.highlights}>
+                  {entry.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </li>
         ))}
       </ol>
 
-      <h3 className={styles.groupTitle}>Education</h3>
+      <h3 className={`${styles.groupTitle} ${styles.educationTitle}`}>Education</h3>
       <div className={styles.entry} {...reveal()}>
         <p className={styles.period}>
           <time dateTime={education.completed.date}>{education.completed.label}</time>

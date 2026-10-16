@@ -1,11 +1,16 @@
 .heading {
   display: grid;
   gap: var(--space-4);
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-8);
 }
 
+/* A quiet, code-comment style title; the content below carries the visual weight. */
 .title {
-  font-size: var(--text-section-title);
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0;
+  text-transform: lowercase;
 }
 
 .intro {

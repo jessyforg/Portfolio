@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { CodeLabel } from '../ui/CodeLabel'
 import styles from './ProjectSection.module.css'
 import { reveal } from '../../utils/reveal'
 
@@ -18,7 +19,7 @@ export function ProjectSection({ id, title, wide = false, children }: ProjectSec
   return (
     <section id={id} aria-labelledby={headingId} className={className} {...reveal()}>
       <h2 id={headingId} className={styles.title}>
-        {title}
+        <CodeLabel>{title}</CodeLabel>
       </h2>
       <div className={styles.body}>{children}</div>
     </section>

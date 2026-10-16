@@ -33,6 +33,11 @@
   --text-card-title: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem); /* 20 → 24px */
   --text-section-title: clamp(1.75rem, 1.4rem + 1.5vw, 2.375rem); /* 28 → 38px */
   --text-display: clamp(2.5rem, 1.6rem + 4vw, 4.25rem); /* 40 → 68px */
+  --text-hero: clamp(3.5rem, 1rem + 9vw, 8.5rem); /* 56 → 136px: the home-page name only */
+  --text-label: 0.875rem; /* 14px: monospace code-style labels */
+
+  --font-mono:
+    ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
   --weight-regular: 400;
   --weight-medium: 500;
