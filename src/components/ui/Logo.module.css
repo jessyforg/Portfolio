@@ -1,0 +1,24 @@
+.logo {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.frame {
+  fill: var(--color-surface);
+  stroke: var(--color-border);
+  stroke-width: 1.5;
+  transition: stroke var(--duration-base) var(--ease-out);
+}
+
+.letters {
+  fill: var(--color-accent);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+/* Hover on the surrounding link draws the frame in gold. */
+a:hover > .logo .frame {
+  stroke: var(--color-accent);
+}

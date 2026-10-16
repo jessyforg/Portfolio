@@ -1,10 +1,14 @@
+/*
+ * The <header> is a transparent sticky strip; the visible bar (.bar) floats inside it,
+ * inset from the page edges. pointer-events: none on the strip lets clicks reach the
+ * page content around the bar; the bar itself re-enables them.
+ */
 .header {
   position: sticky;
   top: 0;
   z-index: 10;
-  border-bottom: var(--border-width) solid var(--color-border);
-  background-color: rgb(17 19 21 / 0.92); /* --color-bg with transparency */
-  backdrop-filter: blur(10px);
+  padding-top: var(--space-3);
+  pointer-events: none;
   /* Keeps the header still while the page content cross-fades between routes. */
   view-transition-name: site-header;
 }
@@ -15,33 +19,51 @@
   }
 }
 
+/* ---------- The floating bar ---------- */
+
 .bar {
+  position: relative; /* anchors the mobile menu card */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: var(--header-height);
+  min-height: calc(var(--header-height) - var(--space-3) - var(--space-1));
+  padding-inline: var(--space-2) var(--space-2);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: rgb(26 29 32 / 0.85); /* --color-surface, slightly translucent */
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgb(245 242 235 / 0.04),
+    0 8px 24px -16px rgb(0 0 0 / 0.6);
+  pointer-events: auto;
+  transition:
+    box-shadow 300ms var(--ease-out),
+    border-color 300ms var(--ease-out),
+    background-color 300ms var(--ease-out);
 }
 
+/* After scrolling: a deeper shadow and a touch more opacity, so it reads as floating. */
+.header[data-scrolled] .bar {
+  border-color: rgb(168 173 179 / 0.22);
+  background-color: rgb(26 29 32 / 0.92);
+  box-shadow:
+    inset 0 1px 0 rgb(245 242 235 / 0.05),
+    0 16px 40px -18px rgb(0 0 0 / 0.75);
+}
+
+/* Home link: the JP monogram (see ui/Logo). */
 .wordmark {
-  border-radius: var(--radius-sm); /* rounds the focus ring */
-  color: var(--color-text);
-  font-size: 1.125rem;
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--tracking-tight);
-  text-decoration: none;
+  display: inline-flex;
+  border-radius: var(--radius-md); /* rounds the focus ring to match the logo */
 }
 
-.wordmark:hover {
-  color: var(--color-text);
-}
-
-/* ---------- Mobile (default): menu button + dropdown panel ---------- */
+/* ---------- Mobile (default): menu button + floating menu card ---------- */
 
 .toggle {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  min-height: 2.75rem;
+  min-height: 2.5rem;
   padding: 0 var(--space-4);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
@@ -96,21 +118,25 @@
   rotate: -45deg;
 }
 
+/* The menu opens as a card floating just below the bar. */
 .menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + var(--space-2));
   right: 0;
   left: 0;
   display: none;
   flex-direction: column;
   gap: var(--space-1);
   margin: 0;
-  padding: var(--space-4) var(--gutter) var(--space-6);
-  border-bottom: var(--border-width) solid var(--color-border);
-  background-color: var(--color-bg);
-  box-shadow: var(--shadow-raised);
+  padding: var(--space-3) var(--space-5) var(--space-5);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  /* Fully opaque: a reading surface. (Translucency let bright page text show through.) */
+  background-color: var(--color-surface);
+  box-shadow: 0 20px 48px -20px rgb(0 0 0 / 0.8);
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top center;
   /* allow-discrete lets display:none → flex animate (falls back to an instant toggle). */
   transition:
     opacity var(--duration-base) var(--ease-out),
@@ -128,23 +154,24 @@
 @starting-style {
   .menu[data-open='true'] {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(0.98);
   }
 }
 
 .link {
   display: block;
-  font-family: var(--font-mono);
-  text-transform: lowercase;
   padding: var(--space-3) 0;
   border-radius: var(--radius-sm); /* rounds the focus ring */
   color: var(--color-text);
+  font-family: var(--font-mono);
   font-size: var(--text-lead);
   font-weight: var(--weight-semibold);
   text-decoration: none;
+  text-transform: lowercase;
 }
 
-.link:hover {
+.link:hover,
+.link[aria-current] {
   color: var(--color-accent);
 }
 
@@ -155,6 +182,10 @@
 /* ---------- Desktop: inline links, no menu button ---------- */
 
 @media (min-width: 900px) {
+  .bar {
+    padding-inline: var(--space-2) var(--space-3);
+  }
+
   .toggle {
     display: none;
   }
@@ -169,6 +200,7 @@
     padding: 0;
     border: 0;
     background: none;
+    backdrop-filter: none;
     box-shadow: none;
     opacity: 1;
     transform: none;
@@ -182,7 +214,7 @@
     font-size: var(--text-small);
   }
 
-  /* Underline that draws in from the left on hover. */
+  /* Underline that draws in from the left on hover, and stays for the current section. */
   .link::after {
     content: '';
     position: absolute;
@@ -200,7 +232,12 @@
     color: var(--color-text);
   }
 
-  .link:hover::after {
+  .link[aria-current] {
+    color: var(--color-accent);
+  }
+
+  .link:hover::after,
+  .link[aria-current]::after {
     transform: scaleX(1);
   }
 
