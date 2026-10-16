@@ -64,7 +64,7 @@ eslint.config.js        Lint rules
 - **Component styles** use CSS Modules: `Component.tsx` sits next to `Component.module.css`.
 - **Breakpoints:** `640px` and `900px` (mobile-first `min-width` queries). CSS variables can't be used in media queries, so these values are written literally.
 - **Focus:** every interactive element shows a gold outline on keyboard focus (`:focus-visible` in `global.css`). Never remove it.
-- **Motion:** smooth scrolling and transitions are disabled when the OS "reduce motion" setting is on.
+- **Motion:** anchor and route navigation jump instantly (no smooth scrolling, which made new pages visibly scroll after route changes). Transitions are disabled when the OS "reduce motion" setting is on.
 - **Font:** Manrope Variable, self-hosted via `@fontsource-variable/manrope` (no external font requests).
 
 ## Content and assets
@@ -73,22 +73,22 @@ eslint.config.js        Lint rules
 - Do not show the phone number or home address on site pages. The resume PDF includes the phone number by Jester's choice; the home address must never be published.
 - **Updating the resume:** export from Word, then replace `public/assets/resume/jester-perez-resume.pdf` (same filename). Check the PDF's Author property says Jester Perez, not the Word template author.
 - Asset filenames are lowercase with hyphens (e.g. `profile-portrait-960.webp`). Images are WebP with metadata stripped, and are referenced through `assetUrl()`.
-- Project summaries in `content/projects.ts` are shared by the home-page cards and the case-study pages.
+- Project summaries in `content/projects.ts` are shared by the home-page cards and the case-study pages. Case-study detail lives in `content/caseStudies.ts` and is rendered by one template, `pages/projects/CaseStudyPage.tsx`.
+- Case-study claims were verified against the source code (see the comment at the top of `caseStudies.ts`). Project repositories are intentionally not linked.
 
 ## Routing
 
 React Router (`createBrowserRouter`) with these routes:
 
-| Path                | Page                                      |
-| ------------------- | ----------------------------------------- |
-| `/`                 | Home                                      |
-| `/projects/kapital` | Kapital case study (placeholder until M4) |
-| `/projects/taraki`  | TARAKI case study (placeholder until M4)  |
-| anything else       | Page not found                            |
+| Path                | Page               |
+| ------------------- | ------------------ |
+| `/`                 | Home               |
+| `/projects/kapital` | Kapital case study |
+| `/projects/taraki`  | TARAKI case study  |
+| anything else       | Page not found     |
 
 Nav items link to home-page sections (`/#work`, `/#about`, `/#contact`). After each navigation, focus moves to the new section or `<main>` so keyboard and screen-reader users land on the new content.
 
 ## Known limitations
 
-- Both case-study pages are temporary placeholders (Milestone 4).
 - Not yet deployed. Hosting on Vercel needs a rewrite rule so direct visits to case-study URLs work (planned for Milestone 6).

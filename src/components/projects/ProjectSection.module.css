@@ -1,0 +1,48 @@
+.section {
+  display: grid;
+  gap: var(--space-5);
+  padding-block: var(--space-12);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.title {
+  font-size: var(--text-card-title);
+  line-height: var(--leading-snug);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0; /* lets long content shrink inside the grid instead of overflowing */
+  max-width: var(--measure);
+}
+
+/* Wide sections (e.g. screenshots) use the full content width instead of the prose measure. */
+.wide .body {
+  max-width: none;
+}
+
+/*
+ * Plain bulleted lists inside a section body share the same rhythm.
+ * :not([class]) leaves components with their own list styles (e.g. FeatureList) untouched.
+ */
+.body ul:not([class]) {
+  display: grid;
+  gap: var(--space-3);
+  padding-left: var(--space-5);
+}
+
+.body ul:not([class]) li::marker {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 900px) {
+  .section {
+    grid-template-columns: 14rem 1fr;
+    gap: var(--space-8);
+  }
+
+  .title {
+    padding-top: 0.1em;
+  }
+}

@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router'
 import { SiteLayout } from '../components/layout/SiteLayout'
 import { HomePage } from '../pages/HomePage'
 import { NotFoundPage } from '../pages/NotFoundPage'
-import { ProjectPlaceholderPage } from '../pages/projects/ProjectPlaceholderPage'
+import { CaseStudyPage } from '../pages/projects/CaseStudyPage'
 
 export const router = createBrowserRouter(
   [
@@ -10,8 +10,8 @@ export const router = createBrowserRouter(
       element: <SiteLayout />,
       children: [
         { path: '/', element: <HomePage /> },
-        { path: '/projects/kapital', element: <ProjectPlaceholderPage name="Kapital" /> },
-        { path: '/projects/taraki', element: <ProjectPlaceholderPage name="TARAKI" /> },
+        { path: '/projects/kapital', element: <CaseStudyPage slug="kapital" /> },
+        { path: '/projects/taraki', element: <CaseStudyPage slug="taraki" /> },
         { path: '*', element: <NotFoundPage /> },
       ],
     },

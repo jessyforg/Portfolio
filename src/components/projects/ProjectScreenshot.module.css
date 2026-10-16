@@ -1,0 +1,17 @@
+.figure {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface); /* visible while the image loads */
+}
+
+.caption {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}

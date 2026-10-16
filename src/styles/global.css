@@ -74,11 +74,11 @@ a:hover {
   border: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
+/*
+ * No global `scroll-behavior: smooth`: React Router also uses window scrolling to
+ * reset position on route changes, and smooth scrolling made new pages visibly
+ * scroll up through their content after navigation.
+ */
 
 @media (prefers-reduced-motion: reduce) {
   *,

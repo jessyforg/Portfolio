@@ -1,0 +1,49 @@
+/* Overrides the generic list styling from ProjectSection. */
+.list {
+  display: grid;
+  gap: 0;
+  padding: 0;
+}
+
+.item {
+  padding-block: var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.item:first-child {
+  padding-top: 0;
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+}
+
+.name {
+  font-size: var(--text-body);
+  letter-spacing: 0;
+  line-height: var(--leading-snug);
+}
+
+.status {
+  padding: 0 var(--space-2);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium);
+}
+
+/* Partial features get a dashed outline as well as different wording. */
+.status[data-status='partial'] {
+  border-style: dashed;
+  border-color: var(--color-text-muted);
+}
+
+.description {
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
