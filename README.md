@@ -2,7 +2,7 @@
 
 Personal portfolio for Jester Perez, an entry-level Full-Stack Developer. Static site built with React, Vite, and TypeScript.
 
-> **Status:** in development (foundation only). Not yet deployed.
+> **Live site:** https://jesperez.vercel.app
 
 ## Tech stack
 
@@ -10,7 +10,7 @@ Personal portfolio for Jester Perez, an entry-level Full-Stack Developer. Static
 - Vite 8
 - Custom CSS with CSS Modules (no CSS framework)
 - ESLint (flat config, `typescript-eslint` strict) + Prettier
-- Planned hosting: Vercel (static build)
+- Hosting: Vercel (static build), with GitHub Actions for CI checks
 
 ## Prerequisites
 
@@ -106,8 +106,27 @@ React Router (`createBrowserRouter`) with these routes:
 
 Nav items link to home-page sections (`/#work`, `/#about`, `/#contact`). After each navigation, focus moves to the new section or `<main>` so keyboard and screen-reader users land on the new content.
 
+## Deployment
+
+Hosted on **Vercel** (free Hobby plan) at **https://jesperez.vercel.app**.
+
+- **How it deploys:** Vercel's GitHub integration builds and deploys every push to `main`. Pushes to other branches get preview URLs. Settings live in `vercel.json` (framework Vite, output `dist`, clean URLs, no trailing slash), so the Vercel dashboard needs no manual configuration.
+- **Quality gate:** `.github/workflows/ci.yml` runs type checking, linting, formatting, and the build on every push and pull request. It does not deploy.
+- **Per-page HTML:** after `vite build`, `scripts/prerender.ts` writes `dist/index.html`, `dist/projects/kapital.html`, `dist/projects/taraki.html`, and `dist/404.html`, each with its own title, description, canonical URL, and Open Graph tags, plus `dist/sitemap.xml`. Page metadata lives in `src/content/pageMeta.ts`.
+- **Routing on Vercel:** real files mean direct visits and refreshes return 200 without a catch-all rewrite. Unknown paths return a real 404 status with the site's "Page not found" page. `/projects/kapital/` and `/projects/kapital.html` redirect to `/projects/kapital`.
+
+### Changing the domain
+
+1. Update `SITE_URL` in `src/content/pageMeta.ts`.
+2. Update the `Sitemap:` line in `public/robots.txt`.
+3. Regenerate `public/og-image.png` if you want the new URL shown on the preview image.
+
+### Troubleshooting
+
+- **"No Output Directory named build found":** Vercel guessed the wrong framework. `vercel.json` sets the framework and output directory; make sure it is committed.
+- **Case-study URL returns 404 on Vercel:** check that the build log shows `prerender: wrote dist/projects/...` lines.
+- **Push rejected with "Invalid username or token":** clear the old `git:https://github.com` entry in Windows Credential Manager and push again.
+
 ## Known limitations
 
 - Not yet tested with a screen reader (e.g. NVDA) or on physical phones/tablets; checks so far are automated plus visual review of screenshots.
-- Every route currently serves the same HTML `<title>` and description to crawlers and link previews (the correct title is set once JavaScript runs). Per-page HTML, Open Graph tags, a canonical URL, and a sitemap need the final domain (Milestone 6).
-- Not yet deployed. Hosting on Vercel needs a rewrite rule so direct visits to case-study URLs work (planned for Milestone 6).

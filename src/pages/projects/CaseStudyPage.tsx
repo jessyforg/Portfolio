@@ -5,12 +5,13 @@ import { ProjectScreenshot } from '../../components/projects/ProjectScreenshot'
 import { ProjectSection } from '../../components/projects/ProjectSection'
 import { TechTagList } from '../../components/ui/TechTag'
 import { getCaseStudy } from '../../content/caseStudies'
-import { contactLinks, profile } from '../../content/portfolio'
+import { pageMeta } from '../../content/pageMeta'
+import { contactLinks } from '../../content/portfolio'
 import { getProject, projectPath, projects } from '../../content/projects'
 import styles from './CaseStudyPage.module.css'
 
 interface CaseStudyPageProps {
-  slug: string
+  slug: 'kapital' | 'taraki'
 }
 
 /** Shared template for every project case study. Content comes from content/projects.ts and content/caseStudies.ts. */
@@ -22,7 +23,7 @@ export function CaseStudyPage({ slug }: CaseStudyPageProps) {
 
   return (
     <article>
-      <title>{`${project.name} | Project Case Study — ${profile.name}`}</title>
+      <title>{pageMeta[slug].title}</title>
 
       <PageContainer>
         <header className={styles.header}>
