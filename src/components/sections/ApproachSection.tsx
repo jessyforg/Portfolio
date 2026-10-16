@@ -1,6 +1,7 @@
 import { approach } from '../../content/portfolio'
 import { Section } from '../layout/Section'
 import styles from './ApproachSection.module.css'
+import { reveal } from '../../utils/reveal'
 
 export function ApproachSection() {
   return (
@@ -10,8 +11,8 @@ export function ApproachSection() {
       intro="How I’ve worked on real projects so far."
     >
       <ul role="list" className={styles.grid}>
-        {approach.map((item) => (
-          <li key={item.title} className={styles.item}>
+        {approach.map((item, index) => (
+          <li key={item.title} className={styles.item} {...reveal(index)}>
             <h3 className={styles.title}>{item.title}</h3>
             <p className={styles.description}>{item.description}</p>
           </li>

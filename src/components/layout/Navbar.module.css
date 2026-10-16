@@ -5,6 +5,8 @@
   border-bottom: var(--border-width) solid var(--color-border);
   background-color: rgb(17 19 21 / 0.92); /* --color-bg with transparency */
   backdrop-filter: blur(10px);
+  /* Keeps the header still while the page content cross-fades between routes. */
+  view-transition-name: site-header;
 }
 
 .bar {
@@ -101,10 +103,27 @@
   border-bottom: var(--border-width) solid var(--color-border);
   background-color: var(--color-bg);
   box-shadow: var(--shadow-raised);
+  opacity: 0;
+  transform: translateY(-8px);
+  /* allow-discrete lets display:none → flex animate (falls back to an instant toggle). */
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform 300ms var(--ease-out-expo),
+    display var(--duration-base) allow-discrete;
 }
 
 .menu[data-open='true'] {
   display: flex;
+  opacity: 1;
+  transform: none;
+}
+
+/* Where the opening animation starts from, the moment the menu becomes display:flex. */
+@starting-style {
+  .menu[data-open='true'] {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 }
 
 .link {
@@ -143,16 +162,38 @@
     border: 0;
     background: none;
     box-shadow: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   .link {
+    position: relative;
     padding: var(--space-2) 0;
     color: var(--color-text-muted);
     font-size: var(--text-small);
   }
 
+  /* Underline that draws in from the left on hover. */
+  .link::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0.3em;
+    left: 0;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms var(--ease-out-expo);
+  }
+
   .link:hover {
     color: var(--color-text);
+  }
+
+  .link:hover::after {
+    transform: scaleX(1);
   }
 
   .resumeItem {

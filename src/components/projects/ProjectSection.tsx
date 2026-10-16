@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import styles from './ProjectSection.module.css'
+import { reveal } from '../../utils/reveal'
 
 interface ProjectSectionProps {
   id: string
@@ -15,7 +16,7 @@ export function ProjectSection({ id, title, wide = false, children }: ProjectSec
   const className = wide ? `${styles.section} ${styles.wide}` : styles.section
 
   return (
-    <section id={id} aria-labelledby={headingId} className={className}>
+    <section id={id} aria-labelledby={headingId} className={className} {...reveal()}>
       <h2 id={headingId} className={styles.title}>
         {title}
       </h2>

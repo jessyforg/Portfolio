@@ -31,7 +31,7 @@ export function Navbar() {
   return (
     <header className={styles.header}>
       <PageContainer className={styles.bar}>
-        <Link to="/" className={styles.wordmark}>
+        <Link to="/" className={styles.wordmark} viewTransition>
           {profile.name}
         </Link>
 
@@ -54,6 +54,8 @@ export function Navbar() {
                 <Link
                   to={{ pathname: '/', hash: `#${item.sectionId}` }}
                   className={styles.link}
+                  // Cross-fade only when leaving another page; on the home page these just scroll.
+                  viewTransition={location.pathname !== '/'}
                   onClick={() => setOpenedAt(null)}
                 >
                   {item.label}

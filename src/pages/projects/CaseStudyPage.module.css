@@ -158,3 +158,35 @@
     align-items: center;
   }
 }
+
+/* ---------- Page-load entrance for the case-study header ---------- */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .header > *,
+  .leadScreenshot {
+    animation: rise-in var(--duration-enter) var(--ease-out-expo) both;
+  }
+
+  .header > :nth-child(2) {
+    animation-delay: calc(1 * var(--stagger));
+  }
+
+  .header > :nth-child(3) {
+    animation-delay: calc(2 * var(--stagger));
+  }
+
+  .header > :nth-child(n + 4) {
+    animation-delay: calc(3 * var(--stagger));
+  }
+
+  .leadScreenshot {
+    animation-delay: calc(4 * var(--stagger));
+  }
+}

@@ -1,14 +1,15 @@
 import { education, experience } from '../../content/portfolio'
 import { Section } from '../layout/Section'
 import styles from './ExperienceSection.module.css'
+import { reveal } from '../../utils/reveal'
 
 export function ExperienceSection() {
   return (
     <Section id="experience" title="Experience and education">
       <h3 className={styles.groupTitle}>Experience</h3>
       <ol role="list" className={styles.timeline}>
-        {experience.map((entry) => (
-          <li key={entry.role} className={styles.entry}>
+        {experience.map((entry, index) => (
+          <li key={entry.role} className={styles.entry} {...reveal(index)}>
             <p className={styles.period}>
               <time dateTime={entry.start.date}>{entry.start.label}</time>
               {' – '}
@@ -30,7 +31,7 @@ export function ExperienceSection() {
       </ol>
 
       <h3 className={styles.groupTitle}>Education</h3>
-      <div className={styles.entry}>
+      <div className={styles.entry} {...reveal()}>
         <p className={styles.period}>
           <time dateTime={education.completed.date}>{education.completed.label}</time>
         </p>

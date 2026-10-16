@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import styles from './SectionHeading.module.css'
+import { reveal } from '../../utils/reveal'
 
 interface SectionHeadingProps {
   /** Used as the heading's id so the section can reference it with aria-labelledby. */
@@ -11,7 +12,7 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ id, title, intro }: SectionHeadingProps) {
   return (
-    <header className={styles.heading}>
+    <header className={styles.heading} {...reveal()}>
       <h2 id={id} className={styles.title}>
         {title}
       </h2>

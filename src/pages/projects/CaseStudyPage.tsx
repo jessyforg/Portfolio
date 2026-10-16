@@ -9,6 +9,7 @@ import { pageMeta } from '../../content/pageMeta'
 import { contactLinks } from '../../content/portfolio'
 import { getProject, projectPath, projects } from '../../content/projects'
 import styles from './CaseStudyPage.module.css'
+import { reveal } from '../../utils/reveal'
 
 interface CaseStudyPageProps {
   slug: 'kapital' | 'taraki'
@@ -27,7 +28,7 @@ export function CaseStudyPage({ slug }: CaseStudyPageProps) {
 
       <PageContainer>
         <header className={styles.header}>
-          <Link to="/#work" className={styles.backLink}>
+          <Link to="/#work" className={styles.backLink} viewTransition>
             All projects
           </Link>
           <h1 className={styles.title}>{project.name}</h1>
@@ -136,14 +137,25 @@ export function CaseStudyPage({ slug }: CaseStudyPageProps) {
         </ProjectSection>
 
         <nav aria-label="More projects" className={styles.more}>
-          {otherProjects.map((other) => (
-            <Link key={other.slug} to={projectPath(other)} className={styles.moreLink}>
+          {otherProjects.map((other, index) => (
+            <Link
+              key={other.slug}
+              to={projectPath(other)}
+              className={styles.moreLink}
+              viewTransition
+              {...reveal(index)}
+            >
               <span className={styles.moreLabel}>Next case study</span>
               <span className={styles.moreName}>{other.name}</span>
               <span className={styles.moreTagline}>{other.tagline}</span>
             </Link>
           ))}
-          <Link to="/#work" className={styles.moreLink}>
+          <Link
+            to="/#work"
+            className={styles.moreLink}
+            viewTransition
+            {...reveal(otherProjects.length)}
+          >
             <span className={styles.moreLabel}>Back to the portfolio</span>
             <span className={styles.moreName}>All projects</span>
           </Link>

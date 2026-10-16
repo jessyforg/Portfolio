@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Outlet, ScrollRestoration, useLocation } from 'react-router'
+import { useScrollReveal } from '../../hooks/useScrollReveal'
 import { Footer } from './Footer'
 import { Navbar } from './Navbar'
 import styles from './SiteLayout.module.css'
@@ -16,6 +17,7 @@ export function SiteLayout() {
   const { pathname, hash } = useLocation()
   const mainRef = useRef<HTMLElement>(null)
   const isFirstRender = useRef(true)
+  useScrollReveal(pathname)
 
   useEffect(() => {
     // Don't steal focus on the initial page load.

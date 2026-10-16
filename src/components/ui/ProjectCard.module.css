@@ -7,7 +7,39 @@
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-lg);
   background-color: var(--color-surface);
-  transition: border-color var(--duration-base) var(--ease-out);
+  isolation: isolate; /* keeps the spotlight layer behind the card's content */
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    transform 400ms var(--ease-out-expo),
+    box-shadow 400ms var(--ease-out-expo);
+}
+
+/* Spotlight: a soft gold glow that follows the pointer (position set in ProjectCard.tsx). */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--spot-x, 50%) var(--spot-y, 0%),
+    rgb(214 164 93 / 0.1),
+    transparent 60%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
 }
 
 .card:hover {

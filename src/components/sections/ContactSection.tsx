@@ -3,6 +3,7 @@ import { contactLinks, resumeUrl } from '../../content/portfolio'
 import { Section } from '../layout/Section'
 import { Button, ButtonLink } from '../ui/Button'
 import styles from './ContactSection.module.css'
+import { reveal } from '../../utils/reveal'
 
 type CopyStatus = 'idle' | 'copied' | 'failed'
 
@@ -37,11 +38,11 @@ export function ContactSection() {
       title="Contact"
       intro="I’m open to entry-level full-stack developer roles. Email me or connect on LinkedIn."
     >
-      <a href={contactLinks.email.href} className={styles.email}>
+      <a href={contactLinks.email.href} className={styles.email} {...reveal()}>
         {contactLinks.email.display}
       </a>
 
-      <div className={styles.actions}>
+      <div className={styles.actions} {...reveal(1)}>
         <Button variant="secondary" onClick={copyEmail}>
           Copy email
         </Button>

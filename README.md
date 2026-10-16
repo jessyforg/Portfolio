@@ -64,7 +64,13 @@ eslint.config.js        Lint rules
 - **Component styles** use CSS Modules: `Component.tsx` sits next to `Component.module.css`.
 - **Breakpoints:** `640px` and `900px` (mobile-first `min-width` queries). CSS variables can't be used in media queries, so these values are written literally.
 - **Focus:** every interactive element shows a gold outline on keyboard focus (`:focus-visible` in `global.css`). Never remove it.
-- **Motion:** anchor and route navigation jump instantly (no smooth scrolling, which made new pages visibly scroll after route changes). Transitions are disabled when the OS "reduce motion" setting is on.
+- **Motion:** CSS-only, no animation library, animating only `transform` and `opacity`.
+  - Page-load entrances on the hero and case-study headers (CSS keyframes).
+  - Scroll reveals: add `{...reveal(index)}` from `src/utils/reveal.ts` to an element; `useScrollReveal` (in `SiteLayout`) fades it up once when it enters the viewport. `index` staggers items in a group.
+  - Page transitions: React Router's `viewTransition` prop on links that change page (View Transitions API; other browsers navigate instantly).
+  - Project-card cursor spotlight and hover lift (mouse/trackpad only), animated mobile menu, nav-link underline.
+  - With the OS "reduce motion" setting on, none of this runs and all content is visible immediately: `main.tsx` only enables the hidden "before reveal" state when motion is allowed.
+  - No `scroll-behavior: smooth`: it made new pages visibly scroll after route changes.
 - **Font:** Manrope Variable, self-hosted via `@fontsource-variable/manrope` (no external font requests).
 
 ## Content and assets
