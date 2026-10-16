@@ -19,6 +19,7 @@ export function SiteLayout() {
   const mainRef = useRef<HTMLElement>(null)
   const isFirstRender = useRef(true)
   useScrollReveal(pathname)
+  const isHome = pathname === '/'
 
   useEffect(() => {
     // Don't steal focus on the initial page load.
@@ -43,11 +44,11 @@ export function SiteLayout() {
       <a href="#main" className={styles.skipLink}>
         Skip to content
       </a>
-      <Navbar />
+      <Navbar scrollsAway={isHome} />
       <main id="main" ref={mainRef} tabIndex={-1} className={styles.main}>
         <Outlet />
       </main>
-      <Footer />
+      <Footer alignWithContent={isHome} />
       <ScrollRestoration />
     </>
   )

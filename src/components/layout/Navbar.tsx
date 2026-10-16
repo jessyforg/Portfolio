@@ -7,7 +7,15 @@ import { CodeLabel } from '../ui/CodeLabel'
 import { PageContainer } from './PageContainer'
 import styles from './Navbar.module.css'
 
-export function Navbar() {
+interface NavbarProps {
+  /**
+   * On the desktop home page the header scrolls away with the hero instead of
+   * sticking, because the side panel takes over navigation there.
+   */
+  scrollsAway?: boolean
+}
+
+export function Navbar({ scrollsAway = false }: NavbarProps) {
   const location = useLocation()
   // The menu remembers which location it was opened on, so any navigation
   // (a link click or the browser's back button) closes it automatically.
@@ -30,7 +38,7 @@ export function Navbar() {
   }, [isOpen])
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-scrolls-away={scrollsAway || undefined}>
       <PageContainer className={styles.bar}>
         <Link to="/" className={styles.wordmark} viewTransition>
           {profile.name}

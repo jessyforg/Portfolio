@@ -9,6 +9,12 @@
   view-transition-name: site-header;
 }
 
+@media (min-width: 1024px) {
+  .header[data-scrolls-away] {
+    position: relative;
+  }
+}
+
 .bar {
   display: flex;
   align-items: center;

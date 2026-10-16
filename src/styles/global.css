@@ -7,6 +7,13 @@ html {
   scroll-padding-top: calc(var(--header-height) + var(--space-4));
 }
 
+/* Desktop home page: the header scrolls away, so anchors only need breathing room. */
+@media (min-width: 1024px) {
+  html:has(header[data-scrolls-away]) {
+    scroll-padding-top: var(--space-12);
+  }
+}
+
 /*
  * No background on <body>: <html> paints the page background, which lets the
  * fixed CursorSpotlight layer (z-index -1) show between the page and the content.

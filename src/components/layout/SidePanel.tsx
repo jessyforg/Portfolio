@@ -3,6 +3,7 @@ import { contactLinks, profile, resumeUrl } from '../../content/portfolio'
 import { useActiveSection } from '../../hooks/useActiveSection'
 import { ButtonLink } from '../ui/Button'
 import { CodeLabel } from '../ui/CodeLabel'
+import { SocialIcon } from '../ui/SocialIcon'
 import styles from './SidePanel.module.css'
 
 export interface PanelSection {
@@ -57,13 +58,22 @@ export function SidePanel({ sections }: SidePanelProps) {
           Resume<span className="visually-hidden"> (PDF)</span>
         </ButtonLink>
         <ul role="list" aria-label="Contact links" className={styles.links}>
-          {Object.values(contactLinks).map((link) => (
-            <li key={link.label}>
-              <a href={link.href} className={styles.link}>
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {(['github', 'linkedin', 'email'] as const).map((key) => {
+            const link = contactLinks[key]
+            return (
+              <li key={key}>
+                {/* Icon-only link: aria-label gives it a name; title shows a tooltip on hover. */}
+                <a
+                  href={link.href}
+                  className={styles.iconLink}
+                  aria-label={link.label}
+                  title={link.label}
+                >
+                  <SocialIcon name={key} />
+                </a>
+              </li>
+            )
+          })}
         </ul>
       </div>
     </aside>
