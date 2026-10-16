@@ -52,7 +52,7 @@ export function ContactSection() {
           GitHub
         </ButtonLink>
         <ButtonLink href={resumeUrl} download variant="secondary">
-          Download resume
+          Download resume<span className="visually-hidden"> (PDF)</span>
         </ButtonLink>
       </div>
 

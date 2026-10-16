@@ -16,7 +16,7 @@ export function HeroSection() {
         <div className={styles.actions}>
           <ButtonLink to="/#work">View projects</ButtonLink>
           <ButtonLink href={resumeUrl} download variant="secondary">
-            Download resume
+            Download resume<span className="visually-hidden"> (PDF)</span>
           </ButtonLink>
           <ButtonLink to="/#contact" variant="secondary">
             Contact me

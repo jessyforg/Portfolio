@@ -76,6 +76,23 @@ eslint.config.js        Lint rules
 - Project summaries in `content/projects.ts` are shared by the home-page cards and the case-study pages. Case-study detail lives in `content/caseStudies.ts` and is rendered by one template, `pages/projects/CaseStudyPage.tsx`.
 - Case-study claims were verified against the source code (see the comment at the top of `caseStudies.ts`). Project repositories are intentionally not linked.
 
+## Quality checks
+
+Last full run: 2026-10-16, against the local production build (`npm run build`, then `npm run preview`).
+
+| Check                                                | Tool                                                                                      | Result                                                                                          |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Type check, lint, formatting, build                  | `npm run typecheck`, `lint`, `format:check`, `build`                                      | Pass                                                                                            |
+| Accessibility rules (WCAG 2.2 A/AA + best practices) | axe-core 4.14, all pages at 375px and 1280px, mobile menu open                            | 0 violations                                                                                    |
+| Keyboard                                             | Scripted Tab traversal of every page                                                      | All focusable elements reached; focus ring visible and never hidden by the sticky header        |
+| Target size (WCAG 2.5.8)                             | Scripted measurement                                                                      | All controls at least 24×24px                                                                   |
+| Text spacing (WCAG 1.4.12)                           | Spacing overrides at 320, 375, and 1280px                                                 | No overflow or clipping                                                                         |
+| Reflow                                               | 320–1440px viewports                                                                      | No horizontal scrolling                                                                         |
+| Lighthouse 13.5 (simulated throttling, local)        | Home and Kapital, mobile and desktop                                                      | Performance 98–100, Accessibility 100, Best Practices 100, SEO 92 (before robots.txt was added) |
+| Functional                                           | Scripted browser tests (navigation, cards, history, refresh, resume download, copy email) | Pass                                                                                            |
+
+Lighthouse scores are lab measurements on a local server, not real-user data. Automated checks don't replace testing with a screen reader or on real devices.
+
 ## Routing
 
 React Router (`createBrowserRouter`) with these routes:
@@ -91,4 +108,6 @@ Nav items link to home-page sections (`/#work`, `/#about`, `/#contact`). After e
 
 ## Known limitations
 
+- Not yet tested with a screen reader (e.g. NVDA) or on physical phones/tablets; checks so far are automated plus visual review of screenshots.
+- Every route currently serves the same HTML `<title>` and description to crawlers and link previews (the correct title is set once JavaScript runs). Per-page HTML, Open Graph tags, a canonical URL, and a sitemap need the final domain (Milestone 6).
 - Not yet deployed. Hosting on Vercel needs a rewrite rule so direct visits to case-study URLs work (planned for Milestone 6).

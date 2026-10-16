@@ -1,0 +1,3 @@
+# Allow all crawlers. A Sitemap line is added once the public URL is confirmed (Milestone 6).
+User-agent: *
+Allow: /

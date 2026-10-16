@@ -62,7 +62,7 @@ export function Navbar() {
             ))}
             <li className={styles.resumeItem}>
               <ButtonLink href={resumeUrl} variant="secondary" size="sm">
-                Resume
+                Resume<span className="visually-hidden"> (PDF)</span>
               </ButtonLink>
             </li>
           </ul>
